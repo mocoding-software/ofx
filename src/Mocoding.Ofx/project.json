@@ -1,11 +1,11 @@
 ﻿{
-  "version": "1.1.0",
-  "description": ".Net Core Library to work with OFX (Open Financial Exchange). More info http://www.ofx.org",
+  "version": "1.1.1",
+  "description": ".Net Library to work with OFX (Open Financial Exchange). More info http://www.ofx.org",
   "packOptions": {
-    "summary": ".Net Core Library to work with OFX format. Ofx objects are generated from XSD version 1.0.3. Contains OFX and pure Sgml serializers.",
-    "tags": [ "netcore", "ofx", "qfx", "money", "expense manager", "finance", "parser", "serializer", "sgml" ],
-    "owners": [ "Mocoding" ],
-    "releaseNotes": "Initial release. Included: OfxSerializer, SgmlSerializer, set of OFX objects generated from XSD. Unit tests",
+    "summary": ".Net Library to work with OFX format. Ofx objects are generated from XSD version 1.0.3. Contains OFX and pure Sgml serializers.",
+    "tags": [ "netstandadrd", "ofx", "qfx", "money", "expense manager", "finance", "parser", "serializer", "sgml" ],
+    "owners": [ "MOCODING, LLC" ],
+    "releaseNotes": "Added support for NetStandard 1.0",
     "projectUrl": "https://github.com/mocoding-software/ofx",
     "iconUrl": "https://mocoding.blob.core.windows.net/resources/ofx/nugetIcon.png",
     "licenseUrl": "https://raw.githubusercontent.com/mocoding-software/ofx/master/LICENSE",
@@ -16,38 +16,16 @@
     }
   },
 
+  "buildOptions": {
+    "additionalArguments": [ "/ruleset:../../_stylecop/StyleCop.ruleset" ]
+  },
+
   "frameworks": {
-    "netstandard1.0": {
-      "imports": [
-        "dotnet5.6",
-        "dnxcore50",
-        "portable-net45+win8+dnxcore50"
-      ],
-      "dependencies": {
-        "System.Xml.XmlSerializer": "4.3.0",
-        "System.Text.RegularExpressions": "4.3.0"
-      }
-    },
-    "net45": {
-      "frameworkAssemblies": {
-        "System.Xml": "4.0.0",
-        "System.Xml.XmlSerializer": "4.0.0"
-      }
-    },
-    "uap10.0": {
-      "dependencies": {
-        "System.Xml.XmlSerializer": "4.3.0",
-        "System.Text.RegularExpressions": "4.3.0"
-      }
-    },
-    "netcore45": {
-      "dependencies": {
-        "System.Runtime": "4.0.0",
-        "System.Xml.XmlSerializer": "4.0.0",
-        "System.Xml.ReaderWriter": "4.0.0",
-        "System.Text.RegularExpressions": "4.0.0",
-        "System.IO": "4.0.0"
-      }
-    }
+    "netstandard1.0": { }
+  },
+  "dependencies": {
+    "System.Xml.XmlSerializer": "4.3.0",
+    "System.Text.RegularExpressions": "4.3.0",
+    "StyleCop.Analyzers": "1.0.0"
   }
 }

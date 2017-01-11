@@ -1,5 +1,5 @@
-﻿using Mocoding.Ofx.Protocol;
-using System;
+﻿using System;
+using Mocoding.Ofx.Protocol;
 
 namespace Mocoding.Ofx
 {
@@ -23,7 +23,6 @@ NEWFILEUID:NONE
         public OfxSerializer()
         {
             _sgmlSerializer = new SgmlSerializer<OFX>();
-
         }
 
         public string Serialize(OFX request)
