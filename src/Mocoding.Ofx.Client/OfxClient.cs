@@ -13,7 +13,7 @@ using Mocoding.Ofx.Protocol;
 
 namespace Mocoding.Ofx.Client
 {
-    public partial class OfxClient
+    public partial class OfxClient : IOfxClient
     {
         readonly IOfxClientTransport _transport;
         readonly OfxSerializer _serializer;

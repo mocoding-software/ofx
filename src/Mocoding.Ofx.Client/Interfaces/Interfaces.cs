@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Mocoding.Ofx.Client.Models;
 
 namespace Mocoding.Ofx.Client.Interfaces
 {
+    public interface IOfxClient
+    {
+        Task<AccountTransactions> GetTransactions(Account account, TransactionsFilter filter = null);
+        Task<Account[]> GetAccounts();
+    }
+
     /// <summary>
     /// Transport layer for Ofx Client.
     /// </summary>
