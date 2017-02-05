@@ -127,7 +127,6 @@ namespace Mocoding.Ofx.Client
         static Transaction MapToModel(StatementTransaction transactionDto)
         {
             decimal amount;
-            transactionDto.TRNAMT = transactionDto.TRNAMT.Replace(".", "");
             if (!decimal.TryParse(transactionDto.TRNAMT, out amount))
                 throw new OfxResponseException("Amount of transaction can not be parsed. " + transactionDto.TRNAMT);
 
