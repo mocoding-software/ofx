@@ -20,7 +20,7 @@ namespace Mocoding.Ofx.Client
         readonly IUtils _utils;
 
         public OfxClient(OfxClientOptions options)
-            : this(options, new WebClientTransport(), new OfxSerializer(), new Utils())
+            : this(options, new TcpClientTransport(), new OfxSerializer(), new Utils())
         {
             Options = options;
         }
