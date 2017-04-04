@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.0.3</VersionPrefix>
+    <VersionPrefix>1.0.4</VersionPrefix>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>Mocoding.Ofx.Client</AssemblyName>
     <PackageId>Mocoding.Ofx.Client</PackageId>

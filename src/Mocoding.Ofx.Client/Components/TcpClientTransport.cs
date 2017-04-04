@@ -36,8 +36,7 @@ namespace Mocoding.Ofx.Client.Components
             builder.Append(content);
 
             var httpRequest = builder.ToString();
-            StringBuilder httpResponse = new StringBuilder();
-            Console.WriteLine(httpRequest);
+            StringBuilder httpResponse = new StringBuilder();            
             using (var client = new TcpClient())
             {
                 await client.ConnectAsync(server, url.Port);
@@ -61,8 +60,7 @@ namespace Mocoding.Ofx.Client.Components
                     }
                 }
             }
-            var httpContent = httpResponse.ToString();
-            Console.WriteLine(httpContent);
+            var httpContent = httpResponse.ToString();            
             var contentIndex = httpContent.IndexOf("\r\n\r\n", StringComparison.Ordinal) + 4;
             var endIndex = httpContent.LastIndexOf(">", StringComparison.Ordinal);
             return httpContent.Substring(contentIndex, endIndex - contentIndex + 1);
