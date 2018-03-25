@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>.Net Library to work with OFX (Open Financial Exchange). More info http://www.ofx.org</Description>
-    <VersionPrefix>1.1.1</VersionPrefix>
+    <Description>OFX Schema Object, OFX Parser and Sgml Parser for .NET Standard.</Description>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <AssemblyName>Mocoding.Ofx</AssemblyName>
-    <PackageId>Mocoding.Ofx</PackageId>
     <PackageTags>netstandadrd;ofx;qfx;money;expense manager;finance;parser;serializer;sgml</PackageTags>
-    <PackageReleaseNotes>Added support for NetStandard 1.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Made stylecop as private assets.</PackageReleaseNotes>
     <PackageIconUrl>https://mocoding.blob.core.windows.net/resources/ofx/nugetIcon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/mocoding-software/ofx</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/mocoding-software/ofx/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mocoding-software/ofx</RepositoryUrl>
+    <CodeAnalysisRuleSet>..\..\_stylecop\StyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" />
+    <PackageReference Include="StyleCop.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <Version>1.1.0-beta006</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.0.4</VersionPrefix>
+    <Description>OFX HTTP Client for .NET Standard. Supports Account and Transactions import from financial institution.</Description>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <AssemblyName>Mocoding.Ofx.Client</AssemblyName>
-    <PackageId>Mocoding.Ofx.Client</PackageId>
+    <PackageTags>netstandadrd;ofx;qfx;money;expense manager;finance;parser;serializer;sgml</PackageTags>
+    <PackageReleaseNotes>Updated Dependencies.</PackageReleaseNotes>
+    <PackageIconUrl>https://mocoding.blob.core.windows.net/resources/ofx/nugetIcon.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/mocoding-software/ofx</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/mocoding-software/ofx/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/mocoding-software/ofx</RepositoryUrl>
+    <CodeAnalysisRuleSet>..\..\_stylecop\StyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Net.Http" Version="4.3.0" />
-    <PackageReference Include="System.Net.Security" Version="4.3.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="System.Net.Security" Version="4.3.2" />
     <PackageReference Include="System.Globalization" Version="4.3.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />

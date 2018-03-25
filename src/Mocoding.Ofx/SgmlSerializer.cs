@@ -16,8 +16,6 @@ namespace Mocoding.Ofx
 
         public string Serialize(T request)
         {
-            string result = null;
-
             var ns = new XmlSerializerNamespaces();
             ns.Add(string.Empty, string.Empty);
 
@@ -30,14 +28,14 @@ namespace Mocoding.Ofx
 
             // super HACK! :) converting to sgml by removing closing tags for elements with simple value.
             var sgml = Regex.Replace(xml, @"<([A-Za-z0-9_\-\.]+)>([^<]+)</([A-Za-z0-9_\-\.]+)>", "<$1>$2");
-            result = Regex.Replace(sgml, @"<[A-Za-z0-9_\-]+ />", string.Empty); // remove empty elements
+            var result = Regex.Replace(sgml, @"<[A-Za-z0-9_\-]+ />", string.Empty);
 
             return result;
         }
 
         public T Deserialize(string sgml)
         {
-            var xmlDeclaration = @"<?xml version=""1.0"" encoding=""UTF-8"" ?>";
+            const string xmlDeclaration = @"<?xml version=""1.0"" encoding=""UTF-8"" ?>";
 
             // converting to xml by adding closing tags for elements with simple value.
             var xml = xmlDeclaration + Regex.Replace(sgml, @"<([A-Za-z0-9_\-\.]+)>([^<]+)", "<$1>$2</$1>");

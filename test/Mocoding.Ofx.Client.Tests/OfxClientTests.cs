@@ -63,7 +63,7 @@ namespace Mocoding.Ofx.Client.Tests
             var result = await client.GetTransactions(new Account(AccountTypeEnum.Credit, "XXXXXXXXXXXX3158"));
             var transactions = result;
 
-            Assert.NotEqual(null, transactions);
+            Assert.NotNull(transactions);
             Assert.Equal(2, transactions.Items.Length);
         }
 
@@ -89,7 +89,7 @@ namespace Mocoding.Ofx.Client.Tests
             var result = await client.GetTransactions(new Account(AccountTypeEnum.Checking, "YYYYYYYY1924", "XXXXXXXXX"));
             var transactions = result;
 
-            Assert.NotEqual(null, transactions);
+            Assert.NotNull(transactions);
             Assert.Equal(2, transactions.Items.Length);
         }
 
