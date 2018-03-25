@@ -11,7 +11,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mocoding-software/ofx</RepositoryUrl>
     <CodeAnalysisRuleSet>..\..\_stylecop\StyleCop.ruleset</CodeAnalysisRuleSet>
-    <Authors>MOCODING, LLC</Authors>
+    <Authors>MOCODING</Authors>
   </PropertyGroup>
 
   <ItemGroup>
