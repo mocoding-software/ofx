@@ -36,7 +36,7 @@ namespace Mocoding.Ofx.Client.Components
             builder.Append(content);
 
             var httpRequest = builder.ToString();
-            StringBuilder httpResponse = new StringBuilder();            
+            StringBuilder httpResponse = new StringBuilder();
             using (var client = new TcpClient())
             {
                 await client.ConnectAsync(server, url.Port);
@@ -60,7 +60,7 @@ namespace Mocoding.Ofx.Client.Components
                     }
                 }
             }
-            var httpContent = httpResponse.ToString();            
+            var httpContent = httpResponse.ToString();
             var contentIndex = httpContent.IndexOf("\r\n\r\n", StringComparison.Ordinal) + 4;
             var endIndex = httpContent.LastIndexOf(">", StringComparison.Ordinal);
             return httpContent.Substring(contentIndex, endIndex - contentIndex + 1);
@@ -68,12 +68,14 @@ namespace Mocoding.Ofx.Client.Components
 
         private static void ReadResponse(TcpClient client, Stream sslStream, StringBuilder httpResponse)
         {
+            var chunk = string.Empty;
             do
             {
                 var received = new byte[client.ReceiveBufferSize];
                 var count = sslStream.Read(received, 0, client.ReceiveBufferSize);
-                httpResponse.Append(Encoding.ASCII.GetString(received.Take(count).ToArray()));
-            } while (client.Available > 0);
+                chunk = Encoding.ASCII.GetString(received.Take(count).ToArray());
+                httpResponse.Append(chunk);
+            } while (!chunk.Contains("</OFX>"));
         }
     }
 }
