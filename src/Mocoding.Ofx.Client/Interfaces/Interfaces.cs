@@ -13,7 +13,7 @@ namespace Mocoding.Ofx.Client.Interfaces
     /// <summary>
     /// Transport layer for Ofx Client.
     /// </summary>
-    interface IOfxClientTransport
+    public interface IOfxClientTransport
     {
         /// <summary>
         /// Creates and executes POST request to specified url with specified body content.

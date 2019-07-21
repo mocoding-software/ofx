@@ -11,7 +11,7 @@ namespace Mocoding.Ofx.Client.Components
     /// <summary>
     /// Implementation of OfxClient using WebClient class.
     /// </summary>
-    class WebClientTransport : IOfxClientTransport
+    public class WebClientTransport : IOfxClientTransport
     {
         public async Task<string> PostRequest(Uri url, string content)
         {

@@ -25,6 +25,11 @@ namespace Mocoding.Ofx.Client
             Options = options;
         }
 
+        public OfxClient(OfxClientOptions options, IOfxClientTransport transport)
+            : this(options, transport, new OfxSerializer(), new Utils())
+        {
+        }
+
         internal OfxClient(OfxClientOptions options, IOfxClientTransport transport, IUtils utils)
             : this(options, transport, new OfxSerializer(), utils)
         {

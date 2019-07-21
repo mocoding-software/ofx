@@ -46,8 +46,9 @@ namespace Mocoding.Ofx.Client.Components
                     {
                         await sslStream.AuthenticateAsClientAsync(server);
                         var toSend = Encoding.ASCII.GetBytes(httpRequest);
-                        sslStream.Write(toSend);
-                        ReadResponse(client, sslStream, httpResponse);
+                        await sslStream.WriteAsync(toSend, 0, toSend.Length);
+                        await sslStream.FlushAsync();
+                        await ReadResponse(client, sslStream, httpResponse);
                     }
                 }
                 else
@@ -56,7 +57,7 @@ namespace Mocoding.Ofx.Client.Components
                     {
                         var toSend = Encoding.ASCII.GetBytes(httpRequest);
                         stream.Write(toSend, 0, toSend.Length);
-                        ReadResponse(client, stream, httpResponse);
+                        await ReadResponse(client, stream, httpResponse);
                     }
                 }
             }
@@ -66,13 +67,14 @@ namespace Mocoding.Ofx.Client.Components
             return httpContent.Substring(contentIndex, endIndex - contentIndex + 1);
         }
 
-        private static void ReadResponse(TcpClient client, Stream sslStream, StringBuilder httpResponse)
+        private static async Task ReadResponse(TcpClient client, Stream sslStream, StringBuilder httpResponse)
         {
             var chunk = string.Empty;
+            if (sslStream.CanRead)
             do
             {
                 var received = new byte[client.ReceiveBufferSize];
-                var count = sslStream.Read(received, 0, client.ReceiveBufferSize);
+                var count = await sslStream.ReadAsync(received, 0, client.ReceiveBufferSize);
                 chunk = Encoding.ASCII.GetString(received.Take(count).ToArray());
                 httpResponse.Append(chunk);
             } while (!chunk.Contains("</OFX>"));
