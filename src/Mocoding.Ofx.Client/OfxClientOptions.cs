@@ -2,9 +2,7 @@
 
 namespace Mocoding.Ofx.Client
 {
-    /// <summary>
-    /// Options to initialize URL.
-    /// </summary>
+    /// <summary>Options to initialize URL.</summary>
     public class OfxClientOptions
     {
         /// <summary>
@@ -15,13 +13,19 @@ namespace Mocoding.Ofx.Client
         /// <param name="bankFid">The bank fid.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="password">The password.</param>
-        public OfxClientOptions(Uri apiUrl, string bankOrg, string bankFid, string userId, string password)
+        /// <param name="version">OFX Version.</param>
+        /// <param name="appName">Application Name</param>
+        /// <param name="appVersion">Application Version</param>
+        public OfxClientOptions(Uri apiUrl, string bankOrg, string bankFid, string userId, string password, OfxVersionEnum version = OfxVersionEnum.Version1x, string appName = "QWIN", string appVersion = "2500")
         {
             Password = password;
             UserId = userId;
             BankFid = bankFid;
             BankOrg = bankOrg;
             ApiUrl = apiUrl;
+            Version = version;
+            AppName = appName;
+            AppVersion = appVersion;
         }
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace Mocoding.Ofx.Client
         /// <value>
         /// The API endpoint.
         /// </value>
-        public Uri ApiUrl { get; private set; }
+        public Uri ApiUrl { get; }
 
         /// <summary>
         /// Gets the bank org.
@@ -38,7 +42,7 @@ namespace Mocoding.Ofx.Client
         /// <value>
         /// The bank org in UPPER register.
         /// </value>
-        public string BankOrg { get; private set; }
+        public string BankOrg { get; }
 
         /// <summary>
         /// Gets the bank fid.
@@ -46,7 +50,7 @@ namespace Mocoding.Ofx.Client
         /// <value>
         /// The bank fid.
         /// </value>
-        public string BankFid { get; private set; }
+        public string BankFid { get; }
 
         /// <summary>
         /// Gets the user login.
@@ -54,7 +58,7 @@ namespace Mocoding.Ofx.Client
         /// <value>
         /// The user identifier.
         /// </value>
-        public string UserId { get; private set; }
+        public string UserId { get; }
 
         /// <summary>
         /// Gets the password.
@@ -62,6 +66,22 @@ namespace Mocoding.Ofx.Client
         /// <value>
         /// The password.
         /// </value>
-        public string Password { get; private set; }
+        public string Password { get; }
+
+        /// <summary>
+        /// Gets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
+        public OfxVersionEnum Version { get; }
+
+        /// <summary>Gets the name of the application.</summary>
+        /// <value>The name of the application.</value>
+        public string AppName { get; }
+
+        /// <summary>Gets the application version</summary>
+        /// <value>The application ver.</value>
+        public string AppVersion { get; }
     }
 }

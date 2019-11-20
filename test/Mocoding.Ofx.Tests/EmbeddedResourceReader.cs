@@ -16,18 +16,23 @@ namespace Mocoding.Ofx.Tests
             var resourceStream = assembly.GetManifestResourceStream($"Mocoding.Ofx.Tests.TestData.{resourceName}");
 
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
-                return reader.ReadToEnd();
+                return reader.ReadToEnd().Replace("\r\n", "\n");
         }
 
-        public static string ReadRequestAsString(string resourceName)
-        {
-            return ReadAsString($"Request.{resourceName}");
-        }
+        public static string ReadRequestAsString(string resourceName) =>
+            ReadAsString($"Request.{resourceName}");
 
-        public static string ReadResponseAsString(string resourceName)
-        {
-            return ReadAsString($"Response.{resourceName}");
-        }
+        public static string ReadRequestAsString(string resourceName, OfxVersionEnum version) =>
+            ReadRequestAsString($"{resourceName}.{GetExetension(version)}");
+
+        public static string ReadResponseAsString(string resourceName) =>
+            ReadAsString($"Response.{resourceName}");
+
+        public static string ReadResponseAsString(string resourceName, OfxVersionEnum version) =>
+            ReadResponseAsString($"{resourceName}.{GetExetension(version)}");
+
+        public static string GetExetension(OfxVersionEnum version) =>
+            version == OfxVersionEnum.Version1x ? "sgml" : "xml";
     }
 
 }

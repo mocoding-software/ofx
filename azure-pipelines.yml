@@ -1,0 +1,93 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+# name: $(majorVersion).$(minorVersion).$(patchVersion)$(channelVersion)$(buildVersion)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+      - master
+  tags:
+    include:
+      - v*
+
+pool:
+  vmImage: "ubuntu-18.04"
+
+variables:
+  buildConfiguration: "Release"
+  projectName: "Mocoding.Ofx"
+  solutionFile: "ofx.sln"
+  # majorVersion: 2
+  # minorVersion: 0
+  # patchVersion: 0
+  # channelVersion: "-rc"
+  # buildVersion: $[format('-{0}.build', variables['Build.SourceBranchName'])]
+
+steps:
+  - task: UseGitVersion@5
+    inputs:
+      versionSpec: '5.0.0'
+      useConfigFile: true
+      configFilePath: 'GitVersion.yml'
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet restore"
+    inputs:
+      command: restore
+      projects: $(solutionFile)
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet build"
+    inputs:
+      command: build
+      projects: $(solutionFile)
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet test"
+    inputs:
+      command: test
+      projects: 'test/**/*.Tests.csproj'
+      arguments: "--no-build /p:SkipCodeCoverageReport=true /p:Threshold=80 /p:CoverletOutput=$(Agent.TempDirectory)/"
+
+  - task: PublishCodeCoverageResults@1
+    displayName: "publish code coverage"
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "$(Agent.TempDirectory)/*.xml"
+    condition: succeededOrFailed()
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet pack $(projectName)"
+    inputs:
+      command: pack
+      packagesToPack: "src/$(projectName)/$(projectName).csproj"
+      configuration: $(buildConfiguration)
+      packDirectory: "$(Build.StagingDirectory)/$(projectName)"
+      buildProperties: "Version=$(Build.BuildNumber)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet pack $(projectName).Client"
+    inputs:
+      command: pack
+      packagesToPack: "src/$(projectName).Client/$(projectName).Client.csproj"
+      configuration: $(buildConfiguration)
+      packDirectory: "$(Build.StagingDirectory)/$(projectName)"
+      buildProperties: "Version=$(Build.BuildNumber)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "dotnet pack $(projectName).Client.Discover"
+    inputs:
+      command: pack
+      packagesToPack: "src/$(projectName).Client.Discover/$(projectName).Client.Discover.csproj"
+      configuration: $(buildConfiguration)
+      packDirectory: "$(Build.StagingDirectory)/$(projectName)"
+      buildProperties: "Version=$(Build.BuildNumber)"
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact: nupkg"
+    inputs:
+      PathtoPublish: "$(Build.StagingDirectory)"
+      ArtifactName: nupkg

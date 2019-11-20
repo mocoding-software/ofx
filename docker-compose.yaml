@@ -1,7 +1,7 @@
 version: "2.4"
 
 services:
-  devbox:
+  devbox: &devbox
     image: mocoding/ofx
     command: /bin/sh
     build: 
@@ -9,3 +9,6 @@ services:
       dockerfile: docker/Dockerfile
     volumes: 
       - .:/app
+
+  test:
+    <<: *devbox

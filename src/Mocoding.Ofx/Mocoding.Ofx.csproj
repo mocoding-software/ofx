@@ -1,25 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>OFX Schema Object, OFX Parser and Sgml Parser for .NET Standard.</Description>
+    <Description>OFX Schema Object, OFX Parser and Sgml Parser for .NET Standard. Also includes Statement Parser for QFX files.</Description>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <PackageTags>netstandadrd;ofx;qfx;money;expense manager;finance;parser;serializer;sgml</PackageTags>
-    <PackageReleaseNotes>Made stylecop as private assets.</PackageReleaseNotes>
+    <PackageTags>netstandadrd;ofx;qfx;money;expense manager;finance;parser;serializer;sgml;treasure management</PackageTags>
+    <PackageReleaseNotes>Refactoring and Redesign.</PackageReleaseNotes>
     <PackageIconUrl>https://mocoding.blob.core.windows.net/resources/ofx/nugetIcon.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/mocoding-software/ofx</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/mocoding-software/ofx/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mocoding-software/ofx</RepositoryUrl>
     <CodeAnalysisRuleSet>..\..\_stylecop\StyleCop.ruleset</CodeAnalysisRuleSet>
-    <Authors>MOCODING</Authors>
+    <Authors>MOCODING LLC,Dennis Miasoutov</Authors>
+    <DebugType>Full</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="StyleCop.Analyzers">
       <PrivateAssets>all</PrivateAssets>
-      <Version>1.1.0-beta006</Version>
+      <Version>1.1.118</Version>
     </PackageReference>
   </ItemGroup>
 

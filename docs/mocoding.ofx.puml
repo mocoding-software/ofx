@@ -1,0 +1,64 @@
+@startuml
+
+skinparam componentStyle uml2
+
+' hide class circle
+' hide interface circle
+' hide abstract circle
+' hide enum circle
+
+' hide fields
+
+hide interface fields
+hide class fields
+hide abstract fields
+hide enum methods
+
+
+enum OfxVersionEnum {
+    Version1x= 1,
+    Version2x= 2,
+}
+
+interface IOfxSerializer
+{
+    Serialize(model: OFX) : string
+    Deserialize(intputString: string) : OFX
+}
+
+interface IOfxSerializerFactory {
+    IOfxSerializer Create(version: OfxVersionEnum)
+}
+
+abstract class BaseSerializer {        
+    + {abstract} Serialize(model:OFX) : string
+    + {abstract} Deserialize(inputString:string) : OFX
+
+    # SerializeInternal(request:OFX) : string
+    # DeserializeInternal(input:string) : OFX
+}
+
+class XmlSerializer {    
+    + <<override>> Serialize(model:OFX) : string
+    + <<override>> Deserialize(inputString:string) : OFX
+}
+
+class SgmlSerializer {    
+    + <<override>> Serialize(model:OFX) : string
+    + <<override>> Deserialize(inputString:string) : OFX
+}
+
+class DefaultOfxSerializerFactory {
+    + Create(version:OfxVersionEnum) : IOfxSerializer
+}
+
+IOfxSerializer <|--- BaseSerializer
+IOfxSerializerFactory <|--- DefaultOfxSerializerFactory
+BaseSerializer <|--- XmlSerializer
+BaseSerializer <|--- SgmlSerializer
+
+IOfxSerializerFactory -right-> IOfxSerializer
+
+center footer @ Mocoding 2019
+
+@enduml
