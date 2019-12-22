@@ -14,7 +14,7 @@ namespace Mocoding.Ofx.Serializers
         {
             "OFXHEADER:100",
             "DATA:OFXSGML",
-            "VERSION:102",
+            "VERSION:103",
             "SECURITY:NONE",
             "ENCODING:USASCII",
             "CHARSET:1252",
@@ -48,6 +48,8 @@ namespace Mocoding.Ofx.Serializers
         public override OFX Deserialize(string inputString)
         {
             // convert sgml to xml using Regex
+            inputString = inputString.Replace("\r\n", "");
+
             var xml = Regex.Replace(inputString, @"<([A-Za-z0-9_\-\.]+)>([^<]+)", "<$1>$2</$1>");
             var result = DeserializeInternal(xml);
 

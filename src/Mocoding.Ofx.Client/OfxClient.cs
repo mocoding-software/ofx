@@ -38,6 +38,18 @@ namespace Mocoding.Ofx.Client
             _utils = utils;
             _opts = opts;
         }
+        /// <summary>
+        /// Processes a complete OFX request against the given authorization
+        /// </summary>
+        /// <param name="message">External OFX request</param>
+        /// <returns>Raw OFX Payload</returns>
+        public async Task<string> ProcessOfxMessage(AbstractTopLevelMessageSet message)
+        {
+	        var request = PrepareOfxRequest(AuthRequest(), message); 
+	        var response = await _utils.PostRequest(_opts.ApiUrl, request);
+
+	        return response;
+        }
 
         /// <summary>
         /// Gets accounts ofx raw payload.
@@ -142,6 +154,15 @@ namespace Mocoding.Ofx.Client
         internal string PrepareBankStatementOfxRequest(BankStatementArgs args)
         {
             return PrepareOfxRequest(AuthRequest(), GetBankStatementRequest(args));
+        }
+
+        internal string PrepareOfxRequest(IRequestBuilder authBuilder, AbstractTopLevelMessageSet messageSet)
+        {
+	        var authMessage = authBuilder.Build();
+	        var ofxRequest = new OFX { Items = new[]{authMessage, messageSet} };
+	        var content = _serializer.Serialize(ofxRequest);
+
+	        return content;
         }
 
         internal string PrepareOfxRequest(params IRequestBuilder[] builders)

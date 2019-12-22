@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Threading.Tasks;
 using Mocoding.Ofx.Client;
 using Mocoding.Ofx.Client.Args;
@@ -39,6 +40,37 @@ namespace Mocoding.Ofx.Tests.Client
 
             Assert.NotEqual(ImmutableArray<Account>.Empty, account);
             Assert.Equal(2, account.Length);
+        }
+
+        [Fact]
+        public async Task ProcessOfxMessageTest()
+        {
+	        var expectedResponse =
+		        EmbeddedResourceReader.ReadResponseAsString("accountList.sgml");
+
+	        var options = new OfxClientOptions(ApiUrl, "HAN", "5959", "testUserAccount", "testUserPassword");
+	        var utilsMock = Substitute.For<IProtocolUtils>();
+
+	        utilsMock.Requests.Returns(new DefaultOfxRequestLocator());
+	        utilsMock.PostRequest(Arg.Any<Uri>(), Arg.Any<string>()).Returns(Task.FromResult(expectedResponse));
+
+            utilsMock.GenerateTransactionId().Returns("0000000000");
+	        utilsMock.GetCurrentDateTime().Returns("20150127131257");
+	        utilsMock.GetClientUid(Arg.Is<string>(val => val == "testUserAccount")).Returns("SomeGuidHere");
+
+	        var serializer = new OfxSgmlSerializer();
+	        var client = new OfxClient(options, utilsMock, serializer);
+
+	        var ofx = serializer.Deserialize(client.PrepareAccountsOfxRequest());
+
+            // reuse account request message
+            var resultString = await client.ProcessOfxMessage(ofx.Items[1]);
+
+	        ofx = serializer.Deserialize(resultString);
+	        var account = OfxAccountsParser.Parse(ofx).ToArray();
+
+            Assert.NotEqual(ImmutableArray<Account>.Empty, account);
+	        Assert.Equal(2, account.Length);
         }
 
         [Fact]
