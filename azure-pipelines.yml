@@ -46,6 +46,7 @@ steps:
       organization: 'mocoding'
       scannerMode: 'MSBuild'
       projectKey: 'mocoding-software_ofx'
+      extraProperties: 'sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/coverage.opencover.xml'
 
   - task: DotNetCoreCLI@2
     displayName: "dotnet build"
@@ -70,7 +71,7 @@ steps:
     displayName: "publish code coverage"
     inputs:
       codeCoverageTool: "Cobertura"
-      summaryFileLocation: "$(Agent.TempDirectory)/*.xml"
+      summaryFileLocation: "$(Agent.TempDirectory)/coverage.cobertura.xml"
     condition: succeededOrFailed()
 
   - task: DotNetCoreCLI@2
