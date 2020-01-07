@@ -39,6 +39,14 @@ steps:
       command: restore
       projects: $(solutionFile)
 
+  - task: SonarCloudPrepare@1
+    displayName: "Prepare Sonar Cloud"
+    inputs:
+      SonarCloud: 'sonarcloud'
+      organization: 'mocoding'
+      scannerMode: 'MSBuild'
+      projectKey: 'mocoding-software_ofx'
+
   - task: DotNetCoreCLI@2
     displayName: "dotnet build"
     inputs:
@@ -51,6 +59,12 @@ steps:
       command: test
       projects: 'test/**/*.Tests.csproj'
       arguments: "--no-build /p:SkipCodeCoverageReport=true /p:Threshold=80 /p:CoverletOutput=$(Agent.TempDirectory)/"
+
+  - task: SonarCloudAnalyze@1
+
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
 
   - task: PublishCodeCoverageResults@1
     displayName: "publish code coverage"
