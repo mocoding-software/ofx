@@ -2,7 +2,7 @@
 <Project>
     <PropertyGroup>
         <SkipCodeCoverageReport Condition="$(SkipCodeCoverageReport) == ''">false</SkipCodeCoverageReport>
-        <CoverletOutputFormat>cobertura</CoverletOutputFormat>
+        <CoverletOutputFormat>cobertura,opencover</CoverletOutputFormat>        
         <CollectCoverage>true</CollectCoverage>
         <ExcludeByFile>**/OFX_XSD_Generated.cs</ExcludeByFile>
         <!-- <Threshold>80</Threshold> -->
