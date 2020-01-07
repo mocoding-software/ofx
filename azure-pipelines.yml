@@ -58,7 +58,7 @@ steps:
     inputs:
       command: test
       projects: 'test/**/*.Tests.csproj'
-      arguments: "--no-build /p:CoverletOutputFormat=\"opencover,cobertura\" /p:SkipCodeCoverageReport=true /p:Threshold=80 /p:CoverletOutput=$(Agent.TempDirectory)/"
+      arguments: "--no-build /p:SkipCodeCoverageReport=true /p:Threshold=80 /p:CoverletOutput=$(Agent.TempDirectory)/"
 
   - task: SonarCloudAnalyze@1
 
